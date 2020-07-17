@@ -1,8 +1,16 @@
-const http = require("http"),
-  express = require("express"),
-  socketio = require("socket.io");
+const https = require("https");
+const express = require("express");
+const socketio = require("socket.io");
 
-const SERVER_PORT = 3000;
+const fs = require("fs");
+const options = {
+  key: fs.readFileSync("certs/localhost.key"),
+  cert: fs.readFileSync("certs/localhost.crt"),
+  requestCert: true,
+  rejectUnauthorized: false,
+};
+
+const SERVER_PORT = process.env.PORT || 3001;
 
 let nextVisitorNumber = 1;
 let onlineClients = new Set();
@@ -12,6 +20,7 @@ function generateRandomNumber() {
 }
 
 function onNewWebsocketConnection(socket) {
+  console.log(socket.handshake.query);
   console.info(`Socket ${socket.id} has connected.`);
   onlineClients.add(socket.id);
 
@@ -29,12 +38,12 @@ function onNewWebsocketConnection(socket) {
   setInterval(() => {
     data = Math.random() * 100;
     socket.emit("onDataRead", data);
-  }, 500);
+  }, 400);
 
   // will send a message only to this socket (different than using `io.emit()`, which would broadcast it)
   socket.emit(
     "welcome",
-    `Welcome! You are visitor number ${nextVisitorNumber++}`
+    `Welcome! You are visitor number ${nextVisitorNumber++} `
   );
 }
 
@@ -42,9 +51,11 @@ function startServer() {
   // create a new express app
   const app = express();
   // create http server and wrap the express app
-  const server = http.createServer(app);
+  //const server = http.createServer(app);
+  const server = https.createServer(options, app);
+
   // bind socket.io to that server
-  const io = socketio(server).of("/my-namespace");
+  const io = socketio(server);
 
   // example on how to serve a simple API
   app.get("/random", (req, res) => res.send(generateRandomNumber()));
