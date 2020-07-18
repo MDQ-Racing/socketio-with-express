@@ -5,7 +5,7 @@
   "main": "server.js",
   "bin": "server.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest",
     "build": "pkg . --out-path=dist"
   },
   "keywords": [],
