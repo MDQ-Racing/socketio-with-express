@@ -12,7 +12,7 @@ jobs:
             - run: npm install
             - run: npm run-script build
       - store_artifacts:
-          path: /dist/
+          path: /dist/socketio-with-express-linux
           destination: artifact-file
 workflows:
   build-and-test:
