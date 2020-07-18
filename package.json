@@ -6,13 +6,19 @@
   "bin": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "pkg . --out-path=dist --targets=linux-armv7"
+    "build": "pkg . --out-path=dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "pkg": "^4.4.9",
     "socket.io": "^2.1.1"
+  },
+  "pkg": {
+    "targets": [
+      "node12.2.0-linux-armv7"
+    ]
   }
 }
