@@ -11,6 +11,9 @@ jobs:
           steps:
             - run: npm install
             - run: npm run-script build
+      - store_artifacts:
+          path: /dist/
+          destination: artifact-file
 workflows:
   build-and-test:
     jobs:
