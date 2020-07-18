@@ -10,14 +10,14 @@ jobs:
       - run:
           name: Creating Dummy Artifacts
           command: |
-            mkdir /dist;
-            echo "my artifact file" > /dist/artifact-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact file" > /tmp/artifacts/artifact-1;
       - node/with-cache:
           steps:
             - run: npm install
             - run: npm run-script build
       - store_artifacts:
-          path: /dist
+          path: /tmp/artifacts
           destination: artifact-file
 workflows:
   build-and-test:
