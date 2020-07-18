@@ -5,7 +5,7 @@
   "main": "server.js",
   "bin": "server.js",
   "scripts": {
-    "test": "",
+    "test": "jest --verbose",
     "build": "pkg . --out-path=dist"
   },
   "keywords": [],
@@ -14,11 +14,21 @@
   "dependencies": {
     "express": "^4.16.3",
     "pkg": "^4.4.9",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "jest": "^26.1.0"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
   },
   "pkg": {
     "targets": [
       "node12.2.0-linux-armv7"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
     ]
   }
 }

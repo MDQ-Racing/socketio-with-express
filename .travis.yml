@@ -8,12 +8,3 @@ deploy:
   provider: script
   script: "npm build"
   skip_cleanup: true
-  on:
-    tags: true
-
-notifications:
-  email:
-    recipients:
-      - luchyx@gmail.com
-    on_success: change
-    on_failure: always
