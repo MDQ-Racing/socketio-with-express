@@ -7,6 +7,11 @@ jobs:
       name: node/default
     steps:
       - checkout
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            mkdir /dist;
+            echo "my artifact file" > /dist/artifact-1;
       - node/with-cache:
           steps:
             - run: npm install
